@@ -6,22 +6,12 @@ const NAMES = [
   'Иван',
   'Александр',
   'Мария',
-  'Кристоф',
+  'Артём',
   'Виктор',
   'Юлия',
   'Люпита',
-  'Вашингтон',
-];
-
-const SURNAMES = [
-  'да Марья',
-  'Верон',
-  'Мирабелла',
-  'Вальц',
-  'Онопко',
-  'Топольницкая',
-  'Нионго',
-  'Ирвинг',
+  'Анна',
+  'Анаастасия'
 ];
 
 const MESSAGES = [
@@ -60,23 +50,27 @@ const getRandomArrayElement = (elements) => {
 
 const createComments = () => {
   return {
-    id:  counter(),
+    id:  getRandomPositiveInteger(25, 200),
     avatar: "img/avatar-" + getRandomPositiveInteger(1, 6) + ".svg",
     message: getRandomArrayElement(MESSAGES),
-    neme: getRandomArrayElement(NAMES) + ' ' + getRandomArrayElement(SURNAMES),
+    neme: getRandomArrayElement(NAMES),
   };
 };
 
 const comments = Array.from({length: SIMILAR_COMMENT_COUNT}, createComments);
 
 const createKekstgram = () => {
+  const nn = counter();
+
   return {
-    id: "",
-    url: "",
-    description: "",
-    likes: "",
-    comments: ""
+    id: nn,
+    url: "photo/" + nn + ".jpg",
+    description: getRandomArrayElement(MESSAGES),
+    likes: getRandomPositiveInteger(15, 200),
+    comments: comments[nn],
   }
 }
 
-console.log(comments);
+const kekstgram = Array.from({length: SIMILAR_COMMENT_COUNT}, createKekstgram)
+
+console.log(kekstgram);
