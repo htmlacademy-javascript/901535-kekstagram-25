@@ -1,19 +1,10 @@
-function getRandomPositiveInteger(a, b) {
-  const max = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const min = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-
-  const result = Math.random() * (max - min + 1) + min;
-
-  return Math.floor(result);
-};
-
 function checkStringLength(str, max) {
   return str.length <= max;
 };
 
 const NAMES = [
   'Иван',
-  'Хуан Себастьян',
+  'Александр',
   'Мария',
   'Кристоф',
   'Виктор',
@@ -42,20 +33,50 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const createComments = () => {
-  const randomIndex = getRandomPositiveInteger(0, 25);
-  const randomMessageIndex = getRandomPositiveInteger(0, MESSAGES.length - 1);
-  const randomNameIndex = getRandomPositiveInteger(0, NAMES.length - 1);
-  const randomSurnameIndex = getRandomPositiveInteger(0, SURNAMES.length - 1);
+const SIMILAR_COMMENT_COUNT = 25;
 
-  return {
-    id:  randomIndex,
-    avatar: "",
-    message: MESSAGES[randomMessageIndex],
-    neme: NAMES[randomNameIndex] + ' ' + SURNAMES[randomSurnameIndex],
+const makeCounter = () => {
+  let currentCount = 1;
+
+  return function () {
+    return currentCount++;
   };
 };
 
-console.log(
-  createComments()
-);
+let counter = makeCounter();
+
+const getRandomPositiveInteger = (a, b) => {
+  const max = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const min = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+
+  const result = Math.random() * (max - min + 1) + min;
+
+  return Math.floor(result);
+};
+
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomPositiveInteger(0, elements.length -1)];
+};
+
+const createComments = () => {
+  return {
+    id:  counter(),
+    avatar: "img/avatar-" + getRandomPositiveInteger(1, 6) + ".svg",
+    message: getRandomArrayElement(MESSAGES),
+    neme: getRandomArrayElement(NAMES) + ' ' + getRandomArrayElement(SURNAMES),
+  };
+};
+
+const comments = Array.from({length: SIMILAR_COMMENT_COUNT}, createComments);
+
+const createKekstgram = () => {
+  return {
+    id: "",
+    url: "",
+    description: "",
+    likes: "",
+    comments: ""
+  }
+}
+
+console.log(comments);
