@@ -60,17 +60,17 @@ const createComments = () => {
 const comments = Array.from({length: SIMILAR_COMMENT_COUNT}, createComments);
 
 const createKekstgram = () => {
-  const nn = counter();
+  let nn
 
   return {
-    id: nn,
+    id: "",
     url: "photo/" + nn + ".jpg",
     description: getRandomArrayElement(MESSAGES),
     likes: getRandomPositiveInteger(15, 200),
-    comments: comments[nn],
+    comment: getRandomArrayElement(comments),
   }
 }
 
-const kekstgram = Array.from({length: SIMILAR_COMMENT_COUNT}, createKekstgram)
+const kekstgram = Array.from({length: SIMILAR_COMMENT_COUNT}, createKekstgram, (id, index) => id = index)
 
 console.log(kekstgram);
