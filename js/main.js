@@ -25,16 +25,6 @@ const MESSAGES = [
 
 const SIMILAR_COMMENT_COUNT = 25;
 
-const makeCounter = () => {
-  let currentCount = 1;
-
-  return function () {
-    return currentCount++;
-  };
-};
-
-let counter = makeCounter();
-
 const getRandomPositiveInteger = (a, b) => {
   const max = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const min = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -49,28 +39,32 @@ const getRandomArrayElement = (elements) => {
 };
 
 const createComments = () => {
-  return {
-    id:  getRandomPositiveInteger(25, 200),
-    avatar: "img/avatar-" + getRandomPositiveInteger(1, 6) + ".svg",
-    message: getRandomArrayElement(MESSAGES),
-    neme: getRandomArrayElement(NAMES),
+  let comments = []
+  for (let i = 1; i <= getRandomPositiveInteger(1, 6); i++) {
+    comments.push({
+      id:  i,
+      avatar: "img/avatar-" + getRandomPositiveInteger(1, 6) + ".svg",
+      message: getRandomArrayElement(MESSAGES),
+      neme: getRandomArrayElement(NAMES),
+    })
   };
+  return comments;
 };
 
-const comments = Array.from({length: SIMILAR_COMMENT_COUNT}, createComments);
-
 const createKekstgram = () => {
-  const nn = counter();
+  let kekstgram = []
+  for (let i = 1; i <= SIMILAR_COMMENT_COUNT; i++) {
+    kekstgram.push({
+      id: i,
+      url: "photo/" + i + ".jpg",
+      description: getRandomArrayElement(MESSAGES),
+      likes: getRandomPositiveInteger(15, 200),
+      comments: createComments(),
+    })
+  };
+  return kekstgram;
+};
 
-  return {
-    id: nn,
-    url: "photo/" + nn + ".jpg",
-    description: getRandomArrayElement(MESSAGES),
-    likes: getRandomPositiveInteger(15, 200),
-    comments: comments[nn],
-  }
-}
-
-const kekstgram = Array.from({length: SIMILAR_COMMENT_COUNT}, createKekstgram)
-
-console.log(kekstgram);
+console.log(
+  createKekstgram()
+);
