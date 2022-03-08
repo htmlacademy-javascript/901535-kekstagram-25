@@ -1,13 +1,6 @@
-const random = function (min, max) {
-  if (min < max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  return console.log("Не правильные даные")
-};
+import './util.js';
+import { createKekstgram } from './data.js';
 
-const findLongestWord = function (str, max) {
-  if (str.length <= max) {
-    return true;
-  }
-  return false;
-};
+console.log(
+  createKekstgram()
+)
