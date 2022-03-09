@@ -1,6 +1,3 @@
 import './util.js';
-import { createKekstgram } from './data.js';
-
-console.log(
-  createKekstgram()
-)
+import './data.js';
+import './popup.js';
