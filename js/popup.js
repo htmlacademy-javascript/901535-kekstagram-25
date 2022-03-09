@@ -1,8 +1,11 @@
 import { createKekstgram } from "./data.js";
 
-const userDialog = document.querySelector('.big-picture');
-userDialog.classList.remove('hidden');
-
 const miniature = document.querySelector('#picture');
 
-const newKekstgram = createKekstgram();
+const arrayKekstgram = createKekstgram();
+
+arrayKekstgram.forEach((keks) => {
+  const miniatureElement = miniature.cloneNode(true);
+});
+
+console.log(miniature);
