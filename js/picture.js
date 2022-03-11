@@ -8,7 +8,7 @@ const arrayMiniature = createKekstgram();
 
 arrayMiniature.forEach((keks) => {
   const miniatureElement = miniature.cloneNode(true);
-  // miniatureElement.querySelector('.picture__likes').innerHTML = keks.likes;
+  miniatureElement.querySelector('.picture__img').src = keks.url;
   pictures.appendChild(miniatureElement);
 });
 
