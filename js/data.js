@@ -41,7 +41,7 @@ const createKekstgram = () => {
   for (let i = 1; i <= SIMILAR_COMMENT_COUNT; i++) {
     kekstgram.push({
       id: i,
-      url: "photo/" + i + ".jpg",
+      url: "photos/" + i + ".jpg",
       description: getRandomArrayElement(MESSAGES),
       likes: getRandomPositiveInteger(15, 200),
       comments: createComments(),
