@@ -1,6 +1,5 @@
-import './util.js';
-import { createKekstgram } from './data.js';
+import { cteateMiniature } from './picture.js';
+import { createWindow } from './window.js';
 
-console.log(
-  createKekstgram()
-)
+cteateMiniature();
+// createWindow();
