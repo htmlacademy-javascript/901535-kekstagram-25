@@ -9,12 +9,18 @@ const tempFragment = document.createDocumentFragment();
 
 const arrayMiniature = createKekstgram();
 
-arrayMiniature.forEach(({url, likes, comments}) => {
-  const miniatureElement = tempMiniature.cloneNode(true);
-  miniatureElement.querySelector('.picture__img').src = url;
-  miniatureElement.querySelector('.picture__likes').textContent = likes;
-  miniatureElement.querySelector('.picture__comments').textContent = comments.length;
-  tempFragment.appendChild(miniatureElement);
-});
+const cteateMiniature = () => {
+  arrayMiniature.forEach(({url, likes, comments}) => {
+    const miniatureElement = tempMiniature.cloneNode(true);
 
-pictures.appendChild(tempFragment);
+    miniatureElement.querySelector('.picture__img').src = url;
+    miniatureElement.querySelector('.picture__likes').textContent = likes;
+    miniatureElement.querySelector('.picture__comments').textContent = comments.length;
+
+    tempFragment.appendChild(miniatureElement);
+  });
+
+  pictures.appendChild(tempFragment);
+};
+
+export {cteateMiniature}

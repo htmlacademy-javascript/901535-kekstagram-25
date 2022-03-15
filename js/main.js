@@ -1,4 +1,4 @@
-import './util.js';
-import './data.js';
-import './picture.js';
+import { cteateMiniature } from './picture.js';
 import './window.js';
+
+cteateMiniature();

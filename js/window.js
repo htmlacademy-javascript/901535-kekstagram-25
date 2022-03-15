@@ -1,12 +1,8 @@
-import { createKekstgram } from "./data.js";
+  const userWindow = document.querySelector('.big-picture');
+  userWindow.classList.remove('hidden');
 
-const userWindow = document.querySelector('.big-picture');
-userWindow.classList.remove('hidden');
+  const arrayMiniature = document.querySelectorAll('.picture');
 
-const arrayWindow = createKekstgram();
+  // userWindow.querySelector('.big-picture__img').src = arrayMiniature[0]
 
-// arrayWindow.forEach((keks) => {
-//   const windowElement = userWindow.cloneNode(true);
-//   // windowElement.querySelector('.big-picture__img')
-//   userWindow.appendChild(windowElement);
-// });
+  // console.log(arrayMiniature);
