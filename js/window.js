@@ -1,8 +1,15 @@
-  const userWindow = document.querySelector('.big-picture');
-  userWindow.classList.remove('hidden');
+const userWindow = document.querySelector('.big-picture');
+const userWindowClose = userWindow.querySelector('.cancel');
 
-  const arrayMiniature = document.querySelectorAll('.picture');
+userWindow.classList.remove('hidden');
 
-  // userWindow.querySelector('.big-picture__img').src = arrayMiniature[0]
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    userWindow.classList.add('hidden');
+  }
+});
 
-  // console.log(arrayMiniature);
+userWindowClose.addEventListener('click', () => {
+  userWindow.classList.add('hidden');
+});
