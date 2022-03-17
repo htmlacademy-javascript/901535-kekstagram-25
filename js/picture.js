@@ -23,4 +23,4 @@ const cteateMiniature = () => {
   pictures.appendChild(tempFragment);
 };
 
-export {cteateMiniature}
+export {arrayMiniature, cteateMiniature}
