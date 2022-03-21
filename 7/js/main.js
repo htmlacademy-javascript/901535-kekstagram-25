@@ -1,6 +1,6 @@
-import { arrayMiniature, cteateMiniature } from './picture.js';
-import './window.js';
+import { cteateMiniature } from './picture.js';
+import { openWin } from './window.js';
 
 cteateMiniature();
 
-// arrayMiniature.addEv
+openWin();
