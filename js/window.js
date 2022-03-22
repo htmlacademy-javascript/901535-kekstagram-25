@@ -18,13 +18,6 @@ const openWin = () => {
       body.classList.remove('modal-open');
     }
   });
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    userWindow.classList.add('hidden');
-    body.classList.remove('modal-open');
-  }
-});
+};
 
 export {openWin};
