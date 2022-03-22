@@ -1,4 +1,6 @@
 import { cteateMiniature } from './picture.js';
-import './window.js';
+import { openWin } from './window.js';
 
 cteateMiniature();
+
+openWin();
