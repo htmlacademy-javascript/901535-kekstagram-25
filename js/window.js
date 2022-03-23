@@ -3,6 +3,7 @@ import { isEscapeKey } from "./util.js";
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const social = bigPicture.querySelector('.social');
+const socialComments = social.querySelector('.social__comments');
 const socialCommentCount = social.querySelector('.social__comment-count');
 const bigPictureCancel = bigPicture.querySelector('.cancel');
 const overlay = document.querySelector('.ovelay')

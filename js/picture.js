@@ -1,4 +1,5 @@
 import { createKekstgram } from "./data.js";
+import { postOpen } from "./window.js";
 
 const temp = document.querySelector('#picture').content;
 const tempMiniature = temp.querySelector('.picture');
@@ -18,6 +19,11 @@ const cteateMiniature = () => {
     miniatureElement.querySelector('.picture__comments').textContent = comments.length;
 
     tempFragment.appendChild(miniatureElement);
+
+    miniatureElement.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      postOpen();
+    });
   });
 
   pictures.appendChild(tempFragment);
