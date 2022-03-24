@@ -1,32 +1,32 @@
 import { createKekstgram } from "./data.js";
 import { postOpen } from "./window.js";
 
-const temp = document.querySelector('#picture').content;
-const tempMiniature = temp.querySelector('.picture');
-
+const tempMiniature = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
 
-const tempFragment = document.createDocumentFragment();
+const cteateMiniature = (post) => {
+  const miniatureElement = tempMiniature.cloneNode(true);
 
-const arrayMiniature = createKekstgram();
+  miniatureElement.querySelector('.picture__img').src = post.url;
+  miniatureElement.querySelector('.picture__likes').textContent = post.likes;
+  miniatureElement.querySelector('.picture__comments').textContent = post.comments.length;
 
-const cteateMiniature = () => {
-  arrayMiniature.forEach(({url, likes, comments}) => {
-    const miniatureElement = tempMiniature.cloneNode(true);
+  miniatureElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    postOpen(post);
+  });
 
-    miniatureElement.querySelector('.picture__img').src = url;
-    miniatureElement.querySelector('.picture__likes').textContent = likes;
-    miniatureElement.querySelector('.picture__comments').textContent = comments.length;
+  return miniatureElement;
+};
 
-    tempFragment.appendChild(miniatureElement);
+const renderPosts = () => {
+  const tempFragment = document.createDocumentFragment();
 
-    miniatureElement.addEventListener('click', (evt) => {
-      evt.preventDefault();
-      postOpen();
-    });
+  createKekstgram.forEach((post) => {
+    tempFragment.appendChild(cteateMiniature(post));
   });
 
   pictures.appendChild(tempFragment);
 };
 
-export {arrayMiniature, cteateMiniature}
+export { renderPosts };

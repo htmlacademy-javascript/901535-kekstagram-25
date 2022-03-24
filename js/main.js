@@ -1,3 +1,3 @@
-import { cteateMiniature } from './picture.js';
+import { renderPosts } from './picture.js';
 
-cteateMiniature();
+renderPosts();

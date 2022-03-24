@@ -2,6 +2,7 @@ import { isEscapeKey } from "./util.js";
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
+// const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const social = bigPicture.querySelector('.social');
 const socialComments = social.querySelector('.social__comments');
 const socialCommentCount = social.querySelector('.social__comment-count');
@@ -49,6 +50,6 @@ const postOpen = (post) => {
   bigPictureCancel.removeEventListener('click', closeBigPicture);
   document.removeEventListener('keydown', onPopupEscKeydown);
   overlay.removeEventListener('click', onOverlayClick);
-}
+};
 
 export {postOpen};
