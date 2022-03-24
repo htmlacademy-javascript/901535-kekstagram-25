@@ -1,6 +1,3 @@
-import { cteateMiniature } from './picture.js';
-import { openWin } from './window.js';
+import { renderPosts } from './preview.js';
 
-cteateMiniature();
-
-openWin();
+renderPosts();
