@@ -1,22 +1,37 @@
-function checkStringLength(str, max) {
-  return str.length <= max;
+const getRandomInt = (min, max) => {
+  if (min < 0 || max < 0) {
+    return -1;
+  }
+
+  if (max < min) {
+    [min, max] = [max, min];
+  }
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getRandomPositiveInteger = (a, b) => {
-  const max = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const min = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-
-  const result = Math.random() * (max - min + 1) + min;
-
-  return Math.floor(result);
+const getRandomElement = (array) => {
+  return array[getRandomInt(0, array.length - 1)];
 };
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomPositiveInteger(0, elements.length -1)];
+const getUniqueValue = (array, min, max) => {
+  const id = getRandomInt(min, max);
+
+  if (array.some((item) => item === id)) {
+    getUniqueValue(array, min, max);
+  }
+
+  return id;
 };
 
-const isEscapeKey = (evt) => {
-  return evt.key === 'Escape';
+const removeDuplicate = (arr) => [...new Set(arr)];
+
+const checkingMaxLength = (text, count) => {
+  return text.length <= count;
 };
 
-export {getRandomArrayElement, getRandomPositiveInteger, isEscapeKey};
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+export { getRandomInt, getRandomElement, getUniqueValue, removeDuplicate, checkingMaxLength, isEscEvent };

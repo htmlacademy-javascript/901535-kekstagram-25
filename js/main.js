@@ -1,3 +1,3 @@
-import { renderPosts } from './picture.js';
+import { renderPosts } from './preview.js';
 
 renderPosts();
