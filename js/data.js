@@ -1,53 +1,70 @@
-import { getRandomArrayElement, getRandomPositiveInteger } from './util.js';
+import { getRandomInt, getRandomElement, getUniqueValue } from './util.js';
 
-const NAMES = [
-  'Иван',
-  'Александр',
-  'Мария',
-  'Артём',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Анна',
-  'Анаастасия'
-];
+const POSTS_DATA = {
+  count_posts: 25,
+  names: ['Иван', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
+  comments: [
+    'Всё отлично!',
+    'В целом всё неплохо. Но не всё.',
+    'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+    'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+    'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+    'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  ],
+  count_likes: {
+    min: 15,
+    max: 200,
+  },
+  count_comments: {
+    min: 0,
+    max: 10,
+  },
+  count_avatar: 6,
+  comment_max_length: 140,
+};
 
-const MESSAGES = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-];
+const arrayIds = [];  // массив идентификаторов комментарий
 
-const SIMILAR_COMMENT_COUNT = 25;
+// генерация комментариев
+const createComment = () => {
+  const comments = [];
+  let commentId;
 
-const createComments = () => {
-  let comments = []
-  for (let i = 1; i <= getRandomPositiveInteger(1, 6); i++) {
+  for (let i = 0; i < getRandomInt(POSTS_DATA.count_comments.min, POSTS_DATA.count_comments.max); i++) {
+    commentId = getUniqueValue(arrayIds, 1, 999);
+    arrayIds.push(commentId);
+
+    let messages = new Array(2)                                         // объявляем массив
+      .fill(null)                                                       // присваиваем null всум элементам
+      .map(() => getRandomElement(POSTS_DATA.comments))                 // заполняем случайными значениями
+      .filter((item, index) => index ? getRandomInt(0, 1) : 1)          // оставляем первый элемент (чтоб не был пустым), остальные выводим рандомно
+      .reduce((result, item) => {                                       // удаляем дубликаты
+        return result.includes(item) ? result : [...result, item];
+      }, [])
+      .join(' ');                                                       // склеиваем в строку
+
     comments.push({
-      id:  i,
-      avatar: "img/avatar-" + getRandomPositiveInteger(1, 6) + ".svg",
-      message: getRandomArrayElement(MESSAGES),
-      neme: getRandomArrayElement(NAMES),
-    })
-  };
+      id: commentId,
+      avatar: `img/avatar-${getRandomInt(1, POSTS_DATA.count_avatar)}.svg`,
+      message: messages.substr(0, POSTS_DATA.comment_max_length),
+      name: getRandomElement(POSTS_DATA.names),
+    });
+  }
+
   return comments;
 };
 
-const createKekstgram = () => {
-  let kekstgram = []
-  for (let i = 1; i <= SIMILAR_COMMENT_COUNT; i++) {
-    kekstgram.push({
-      id: i,
-      url: "photos/" + i + ".jpg",
-      description: getRandomArrayElement(MESSAGES),
-      likes: getRandomPositiveInteger(15, 200),
-      comments: createComments(),
-    })
-  };
-  return kekstgram;
-};
+// генерация постов
+const posts = new Array(POSTS_DATA.count_posts)
+  .fill(null)
+  .map((item, index) => {
+    return {
+      id: index + 1,
+      url: `photos/${index + 1}.jpg`,
+      description: `Описание #${index + 1}`,
+      likes: getRandomInt(15, 200),
+      comments: createComment(),
+    };
+  });
 
-export {createKekstgram};
+export { POSTS_DATA, posts };
