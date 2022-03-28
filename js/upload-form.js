@@ -1,5 +1,5 @@
 import { isEscEvent } from "./util.js"
-import { createSlider, destroySlider, resetEffectImage } from "./editor.js";
+import { createSlider, destroySlider, resetEffectImage, onEffectsChange } from "./editor.js";
 import { zoomIn, zoonOut } from "./zoom.js";
 import { validationHashtag } from "./validation.js";
 
@@ -14,7 +14,9 @@ const scaleControlValue = imgUploadScale.querySelector('.scale__control--value')
 const scaleControlSmaller = imgUploadScale.querySelector('.scale__control--smaller');
 const scaleControlBigger = imgUploadScale.querySelector('.scale__control--bigger');
 
+const effects = document.querySelector('.img-upload__effects');
 const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 
 const resetForm = () => {
   scaleControlValue.value = '100%';
@@ -24,16 +26,19 @@ const resetForm = () => {
 };
 
 const openUploadForm = () => {
-  imgUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
   resetForm();
   createSlider();
+
+  body.classList.add('modal-open');
+  imgUploadOverlay.classList.remove('hidden');
 
   document.addEventListener('keydown', onPopupEscKeydown);
   imgUploadCancel.addEventListener('click', closeUploadForm);
   scaleControlSmaller.addEventListener('click', zoomIn);
   scaleControlBigger.addEventListener('click', zoonOut);
+  effects.addEventListener('change', onEffectsChange);
   textHashtags.addEventListener('input', onHashtagsInput);
+  textDescription.addEventListener('input', )
 };
 
 const closeUploadForm = () => {

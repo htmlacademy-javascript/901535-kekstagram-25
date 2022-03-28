@@ -1,4 +1,4 @@
-import "./nouislider.js"
+import "../nouislider/nouislider.js"
 
 const Effect = {
   chrome: { min: 0, max: 1, step: 0.1, style: (value) => `grayscale(${value})` },
@@ -84,13 +84,13 @@ const destroySlider = () => {
   sliderElement.noUiSlider.destroy();
 };
 
-effects.addEventListener('change', (evt) => {
+const onEffectsChange = (evt) => {
   const effect = evt.target.id.split('-')[1];
 
   imgEffect.effect = effect;
 
   updateOptionsSlider(effect);
   updateEffectImage();
-});
+};
 
-export { resetEffectImage, createSlider, destroySlider };
+export { resetEffectImage, createSlider, destroySlider, onEffectsChange };
