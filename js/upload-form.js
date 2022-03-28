@@ -3,8 +3,7 @@ import { createSlider, destroySlider, resetEffectImage } from "./editor.js";
 import { zoomIn, zoonOut } from "./zoom.js";
 import { validationHashtag } from "./validation.js";
 
-const body = document.querySelector('body');
-const imgUpload = body.querySelector('.img-upload');
+const imgUpload = document.querySelector('.img-upload');
 const uploadFileInput = imgUpload.querySelector('#upload-file');
 const imgUploadOverlay = imgUpload.querySelector('.img-upload__overlay');
 const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');

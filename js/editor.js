@@ -30,7 +30,7 @@ const resetEffectImage = () => {
 
 const updateEffectImage = () => {
   sliderValue.value = imgEffect.value;
-  imgUploadPreview.getElementsByClassName.filter = Effect[imgEffect.effect].style(imgEffect.value);
+  imgUploadPreview.style.filter = Effect[imgEffect.effect].style(imgEffect.value);
 
   imgUploadPreview.classList.forEach((item) => {
     if (item.includes('effects__preview--')) {
