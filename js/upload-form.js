@@ -1,9 +1,12 @@
 import { isEscEvent } from "./util.js"
 import { createSlider, destroySlider, resetEffectImage, onEffectsChange } from "./editor.js";
 import { zoomIn, zoonOut } from "./zoom.js";
-import { validationHashtag } from "./validation.js";
+import { validationText } from "./validation.js";
+import { request } from "./network.js";
+import { showErrorLoad, showSuccessLoad } from "./modal.js";
 
-const imgUpload = document.querySelector('.img-upload');
+const body = document.querySelector('body');
+const imgUpload = body.querySelector('.img-upload');
 const uploadFileInput = imgUpload.querySelector('#upload-file');
 const imgUploadOverlay = imgUpload.querySelector('.img-upload__overlay');
 const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
@@ -38,12 +41,13 @@ const openUploadForm = () => {
   scaleControlBigger.addEventListener('click', zoonOut);
   effects.addEventListener('change', onEffectsChange);
   textHashtags.addEventListener('input', onHashtagsInput);
-  textDescription.addEventListener('input', )
+  textDescription.addEventListener('input', onDescriptionInput);
+  imgUpload.addEventListener('submit', onImgUploadFormSubmit);
 };
 
 const closeUploadForm = () => {
   imgUploadOverlay.classList.add('hidden');
-  body.classList.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   uploadFileInput.value = '';
   destroySlider();
 
@@ -52,7 +56,12 @@ const closeUploadForm = () => {
   scaleControlSmaller.removeEventListener('cick', zoomIn);
   scaleControlBigger.removeEventListener('click', zoonOut);
   textHashtags.removeEventListener('input', onHashtagsInput);
+  textDescription.removeEventListener('input', onDescriptionInput);
+  imgUpload.removeEventListener('submit', onImgUploadFormSubmit);
 };
+
+const onHashtagsInput = () => validationText(textHashtags, 'hashtag');
+const onDescriptionInput = () => validationText(textDescription, 'description');
 
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
@@ -64,19 +73,15 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-const onHashtagsInput = () => {
-  textHashtags.setCustomValidity('');
-  textHashtags.style.border = 'none';
+const onSuccess = () => {
+  closeUploadForm();
+  showSuccessLoad();
+};
 
-  const errorMessage = validationHashtag(textHashtags.value);
-  if (errorMessage) {
-    textHashtags.setCustomValidity(errorMessage);
-    textHashtags.style.border = '2px solid red';
-  } else {
-    textHashtags.style.border = 'none';
-  }
+const onImgUploadFormSubmit = (evt) => {
+  evt.preventDefault();
 
-  textHashtags.reportValidity();
+  request(onSuccess, showErrorLoad, 'POST', new FormData(evt.target));
 };
 
 uploadFileInput.addEventListener('change', openUploadForm);

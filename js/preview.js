@@ -18,7 +18,7 @@ const createPostPreview = (post) => {
   return postPreview;
 };
 
-const renderPosts = () => {
+const renderPosts = (posts, callback) => {
   const picturesFragment = document.createDocumentFragment();
 
   posts.forEach((post) => {
@@ -26,6 +26,10 @@ const renderPosts = () => {
   });
 
   pictures.appendChild(picturesFragment);
+
+  if (callback) {
+    callback();
+  }
 };
 
 export { renderPosts };

@@ -1,7 +1,8 @@
 import { getRandomInt, getRandomElement, getUniqueValue } from './util.js';
 
 const POSTS_DATA = {
-  countPosts: 25,
+  count_posts: 25,
+  count_random_posts: 10,
   names: ['Иван', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   comments: [
     'Всё отлично!',
@@ -11,18 +12,19 @@ const POSTS_DATA = {
     'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   ],
-  countLikes: {
+  count_likes: {
     min: 15,
     max: 200,
   },
-  countComments: {
+  count_comments: {
     min: 0,
     max: 10,
   },
-  countAvatar: 6,
-  commentMaxLength: 140,
+  count_avatar: 6,
+  comment_max_length: 140,
 };
 
+let posts;
 const arrayIds = [];  // массив идентификаторов комментарий
 
 // генерация комментариев
@@ -30,21 +32,23 @@ const createComment = () => {
   const comments = [];
   let commentId;
 
-  for (let i = 0; i < getRandomInt(POSTS_DATA.countComments.min, POSTS_DATA.countComments.max); i++) {
+  for (let i = 0; i < getRandomInt(POSTS_DATA.count_comments.min, POSTS_DATA.count_comments.max); i++) {
     commentId = getUniqueValue(arrayIds, 1, 999);
     arrayIds.push(commentId);
 
-    const messages = new Array(2)                                         // объявляем массив
+    let messages = new Array(2)                                         // объявляем массив
       .fill(null)                                                       // присваиваем null всум элементам
       .map(() => getRandomElement(POSTS_DATA.comments))                 // заполняем случайными значениями
-      .filter((item, index) => index ? getRandomInt(0, 1) : 1)          // оставляем первый элемент (чтоб не был пустым), остальные выводим рандомно
-      .reduce((result, item) => result.includes(item) ? result : [...result, item], [])   // удаляем дубликаты
+      .filter((_, index) => index ? getRandomInt(0, 1) : 1)             // оставляем первый элемент (чтоб не был пустым), остальные выводим рандомно
+      .reduce((result, item) => {                                       // удаляем дубликаты
+        return result.includes(item) ? result : [...result, item];
+      }, [])
       .join(' ');                                                       // склеиваем в строку
 
     comments.push({
       id: commentId,
-      avatar: `img/avatar-${getRandomInt(1, POSTS_DATA.countAvatar)}.svg`,
-      message: messages.substr(0, POSTS_DATA.commentMaxLength),
+      avatar: `img/avatar-${getRandomInt(1, POSTS_DATA.count_avatar)}.svg`,
+      message: messages.substr(0, POSTS_DATA.comment_max_length),
       name: getRandomElement(POSTS_DATA.names),
     });
   }
@@ -54,7 +58,7 @@ const createComment = () => {
 
 // генерация постов
 const createPosts = () => {
-    posts = new Array(POSTS_DATA.countPosts)
+  posts = new Array(POSTS_DATA.count_posts)
     .fill(null)
     .map((item, index) => {
       return {
@@ -65,6 +69,6 @@ const createPosts = () => {
         comments: createComment(),
       };
     });
-  };
+};
 
 export { POSTS_DATA, createPosts, posts };
