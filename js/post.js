@@ -28,6 +28,15 @@ const createCommentsFragment = (comments) => {
   return commentsFragment;
 };
 
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+
+  bigPictureCancel.removeEventListener('click', closeBigPicture);
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  overlay.removeEventListener('click', onOverlayClick);
+};
+
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
@@ -39,15 +48,6 @@ const onOverlayClick = (evt) => {
   if (!evt.target.closest('.big-picture__preview')) {
     closeBigPicture();
   }
-};
-
-const closeBigPicture = () => {
-  bigPicture.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
-
-  bigPictureCancel.removeEventListener('click', closeBigPicture);
-  document.removeEventListener('keydown', onPopupEscKeydown);
-  overlay.removeEventListener('click', onOverlayClick);
 };
 
 const renderPost = (post) => {

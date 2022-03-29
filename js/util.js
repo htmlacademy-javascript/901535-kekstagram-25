@@ -1,3 +1,8 @@
+const Keys = {
+  ESC: 'Esc',
+  ESCCAPE: 'Escape',
+};
+
 const getRandomInt = (min, max) => {
   if (min < 0 || max < 0) {
     return -1;
@@ -26,12 +31,25 @@ const getUniqueValue = (array, min, max) => {
 
 const removeDuplicate = (arr) => [...new Set(arr)];
 
-const checkingMaxLength = (text, count) => {
-  return text.length <= count;
+// Перемешать массив
+const shuffle = (arr) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  return arr;
+};
+
+// words = [1, 2, 5] => [один символ, два символа, пять символов]
+const getWordEnding = (number, words) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return words[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
 };
 
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-export { getRandomInt, getRandomElement, getUniqueValue, removeDuplicate, checkingMaxLength, isEscEvent };
+export { getRandomInt, getRandomElement, getUniqueValue, removeDuplicate, shuffle, getWordEnding, isEscEvent };

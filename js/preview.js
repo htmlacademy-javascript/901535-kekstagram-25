@@ -1,4 +1,3 @@
-import { posts } from './data.js';
 import { postOpen } from './post.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');

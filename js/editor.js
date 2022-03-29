@@ -1,3 +1,5 @@
+import "../nouislider/nouislider.js"
+
 const Effect = {
   chrome: { min: 0, max: 1, step: 0.1, style: (value) => `grayscale(${value})` },
   sepia: { min: 0, max: 1, step: 0.1, style: (value) => `sepia(${value})` },
@@ -8,7 +10,9 @@ const Effect = {
 };
 
 const effectLevel = document.querySelector('.effect-level');
+const sliderElement = effectLevel.querySelector('.effect-level__slider');
 const sliderValue = effectLevel.querySelector('.effect-level__value');
+const effects = document.querySelector('.img-upload__effects');
 
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
@@ -26,7 +30,7 @@ const resetEffectImage = () => {
 
 const updateEffectImage = () => {
   sliderValue.value = imgEffect.value;
-  imgUploadPreview.getElementsByClassName.filter = Effect[imgEffect.effect].style(imgEffect.value);
+  imgUploadPreview.style.filter = Effect[imgEffect.effect].style(imgEffect.value);
 
   imgUploadPreview.classList.forEach((item) => {
     if (item.includes('effects__preview--')) {
@@ -34,7 +38,7 @@ const updateEffectImage = () => {
     }
   });
 
-  imgUploadPreview.classList.add('effects__preview--${imgEffect.effct}');
+  imgUploadPreview.classList.add(`effects__preview--${imgEffect.effect}`);
 
   if (imgEffect.effect == 'none') {
     effectLevel.classList.add('visually-hidden');
@@ -43,4 +47,50 @@ const updateEffectImage = () => {
   }
 };
 
-export { resetEffectImage };
+const createSlider = () => {
+  window.noUiSlider.create(sliderElement, {
+    range: {
+      min: Effect[imgEffect.effect].min,
+      max: Effect[imgEffect.effect].max,
+    },
+    start: Effect[imgEffect.effect].max,
+    step: Effect[imgEffect.effect].step,
+    connect: 'lower',
+    format: {
+      to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
+      from: (value) => parseFloat(value),
+    },
+  });
+
+  sliderElement.noUiSlider.on('update', (values, handle) => {
+    imgEffect.value = values[handle];
+
+    updateEffectImage();
+  });
+};
+
+const updateOptionsSlider = (effect) => {
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: Effect[effect].min,
+      max: Effect[effect].max,
+    },
+    start: Effect[effect].max,
+    step: Effect[effect].step,
+  });
+};
+
+const destroySlider = () => {
+  sliderElement.noUiSlider.destroy();
+};
+
+const onEffectsChange = (evt) => {
+  const effect = evt.target.id.split('-')[1];
+
+  imgEffect.effect = effect;
+
+  updateOptionsSlider(effect);
+  updateEffectImage();
+};
+
+export { resetEffectImage, createSlider, destroySlider, onEffectsChange };
