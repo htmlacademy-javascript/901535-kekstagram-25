@@ -53,16 +53,18 @@ const createComment = () => {
 };
 
 // генерация постов
-const posts = new Array(POSTS_DATA.countPosts)
-  .fill(null)
-  .map((item, index) => {   // ???
-    return {
-      id: index + 1,
-      url: `photos/${index + 1}.jpg`,
-      description: `Описание #${index + 1}`,
-      likes: getRandomInt(15, 200),
-      comments: createComment(),
-    };
-  });
+const createPosts = () => {
+    posts = new Array(POSTS_DATA.countPosts)
+    .fill(null)
+    .map((item, index) => {
+      return {
+        id: index + 1,
+        url: `photos/${index + 1}.jpg`,
+        description: `Описание #${index + 1}`,
+        likes: getRandomInt(15, 200),
+        comments: createComment(),
+      };
+    });
+  };
 
-export { POSTS_DATA, posts };
+export { POSTS_DATA, createPosts, posts };
