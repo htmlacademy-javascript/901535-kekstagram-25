@@ -1,3 +1,5 @@
+const DEBOUNCE_INTERVAL = 500;
+
 const Keys = {
   ESC: 'Esc',
   ESCCAPE: 'Escape',
@@ -52,4 +54,27 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-export { getRandomInt, getRandomElement, getUniqueValue, removeDuplicate, shuffle, getWordEnding, isEscEvent };
+const debounce = (callback) => {
+  let lastTimeout = null;
+
+  return (...args) => {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+
+    lastTimeout = window.setTimeout(() => {
+      callback(...args)
+    }, DEBOUNCE_INTERVAL);
+  };
+};
+
+export {
+  getRandomInt,
+  getRandomElement,
+  getUniqueValue,
+  removeDuplicate,
+  shuffle,
+  getWordEnding,
+  isEscEvent,
+  debounce
+};
