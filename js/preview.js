@@ -1,7 +1,15 @@
 import { postOpen } from './post.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const pictures = document.querySelector('.pictures');
+const picturesBlock = document.querySelector('.pictures');
+
+const removePictures = () => {
+  const pictures = picturesBlock.querySelectorAll('.picture');
+
+  pictures.forEach(picture => {
+    picture.remove();
+  });
+};
 
 const createPostPreview = (post) => {
   const postPreview = pictureTemplate.cloneNode(true);
@@ -25,11 +33,11 @@ const renderPosts = (posts, callback) => {
     picturesFragment.appendChild(createPostPreview(post));
   });
 
-  pictures.appendChild(picturesFragment);
+  picturesBlock.appendChild(picturesFragment);
 
   if (callback) {
     callback();
   }
 };
 
-export { renderPosts };
+export { removePictures, renderPosts };
