@@ -1,4 +1,5 @@
 const DEBOUNCE_INTERVAL = 500;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const Keys = {
   ESC: 'Esc',
@@ -68,6 +69,22 @@ const debounce = (callback) => {
   };
 };
 
+const getPhotoSrc = (fileChooser) => {
+  const file = fileChooser.files[0];
+  const fileName = file.name.toLowerCase();
+
+  return new Promise((resolve, reject) => {
+    if (FILE_TYPES.some((it) => fileName.endsWits(it))) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+      reader.addEventListener('load', () => resolve(reader.result), { once: true });
+    } else {
+      reject('Неверный формат файла');
+    }
+  });
+};
+
 export {
   getRandomInt,
   getRandomElement,
@@ -76,5 +93,6 @@ export {
   shuffle,
   getWordEnding,
   isEscEvent,
-  debounce
+  debounce,
+  getPhotoSrc
 };

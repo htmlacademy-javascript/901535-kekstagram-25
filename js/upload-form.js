@@ -1,4 +1,4 @@
-import { isEscEvent } from "./util.js"
+import { getPhotoSrc, isEscEvent } from "./util.js"
 import { createSlider, destroySlider, resetEffectImage, onEffectsChange } from "./editor.js";
 import { zoomIn, zoonOut } from "./zoom.js";
 import { validationText } from "./validation.js";
@@ -12,6 +12,7 @@ const imgUploadOverlay = imgUpload.querySelector('.img-upload__overlay');
 const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
 
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
+const imgEffectsPreviews = imgUpload.querySelectorAll('.effects__preview');
 const imgUploadScale = document.querySelector('.img-upload__scale');
 const scaleControlValue = imgUploadScale.querySelector('.scale__control--value');
 const scaleControlSmaller = imgUploadScale.querySelector('.scale__control--smaller');
@@ -26,6 +27,21 @@ const resetForm = () => {
   imgUploadPreview.style = '';
 
   resetEffectImage();
+};
+
+const renderPhotoPreview = (src) => {
+  imgUploadPreview.src = src;
+
+  imgEffectsPreviews.forEach(element => {
+    element.style.backgroundImage = `url(${src})`;
+  });
+};
+
+const loadPreview = () => {
+  getPhotoSrc(uploadFileInput)
+    .then((data) => renderPhotoPreview(data))
+    .then(() => openUploadForm())
+    .catch((error) => showErrorLoad(error));
 };
 
 const openUploadForm = () => {
@@ -84,4 +100,4 @@ const onImgUploadFormSubmit = (evt) => {
   request(onSuccess, showErrorLoad, 'POST', new FormData(evt.target));
 };
 
-uploadFileInput.addEventListener('change', openUploadForm);
+uploadFileInput.addEventListener('change', loadPreview);
