@@ -29,7 +29,7 @@ const zoomIn = () => {
   zoomImage(value);
 };
 
-const zoonOut = () => {
+const zoomOut = () => {
   let value = getValue(scaleControlValue.value) + Zoom.STEP;
   if (value > Zoom.MAX) {
     value = Zoom.MAX;
@@ -38,4 +38,4 @@ const zoonOut = () => {
   zoomImage(value);
 };
 
-export { zoomIn, zoonOut };
+export { zoomIn, zoomOut };

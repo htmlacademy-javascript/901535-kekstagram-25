@@ -3,7 +3,7 @@ const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const Keys = {
   ESC: 'Esc',
-  ESCCAPE: 'Escape',
+  ESCAPE: 'Escape',
 };
 
 const getRandomInt = (min, max) => {
@@ -52,7 +52,7 @@ const getWordEnding = (number, words) => {
 };
 
 const isEscEvent = (evt) => {
-  return evt.key === 'Escape' || evt.key === 'Esc';
+  return evt.key === Keys.ESC || evt.key === Keys.ESCAPE;
 };
 
 const debounce = (callback) => {
@@ -64,7 +64,7 @@ const debounce = (callback) => {
     }
 
     lastTimeout = window.setTimeout(() => {
-      callback(...args)
+      callback(...args);
     }, DEBOUNCE_INTERVAL);
   };
 };
@@ -74,7 +74,7 @@ const getPhotoSrc = (fileChooser) => {
   const fileName = file.name.toLowerCase();
 
   return new Promise((resolve, reject) => {
-    if (FILE_TYPES.some((it) => fileName.endsWits(it))) {
+    if (FILE_TYPES.some((it) => fileName.endsWith(it))) {
       const reader = new FileReader();
 
       reader.readAsDataURL(file);
@@ -85,14 +85,4 @@ const getPhotoSrc = (fileChooser) => {
   });
 };
 
-export {
-  getRandomInt,
-  getRandomElement,
-  getUniqueValue,
-  removeDuplicate,
-  shuffle,
-  getWordEnding,
-  isEscEvent,
-  debounce,
-  getPhotoSrc
-};
+export { getRandomInt, getRandomElement, getUniqueValue, removeDuplicate, shuffle, getWordEnding, isEscEvent, debounce, getPhotoSrc };

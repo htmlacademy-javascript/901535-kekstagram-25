@@ -1,7 +1,7 @@
-import { posts as generatedPosts, POSTS_DATA } from "./data.js";
-import { posts as receivedPosts } from "./load.js";
-import { removePictures, renderPosts } from "./preview.js";
-import { debounce, shuffle } from "./util.js";
+import { removePictures, renderPosts } from './preview.js';
+import { POSTS_DATA, posts as generatedPosts } from './data.js';
+import { posts as receivedPosts } from './load.js';
+import { shuffle, debounce } from './util.js';
 
 const filter = document.querySelector('.img-filters');
 const filterForm = filter.querySelector('.img-filters__form');
@@ -41,7 +41,7 @@ const onFilterClick = (evt) => {
 
   if (!posts) {
     posts = receivedPosts || generatedPosts;
-  };
+  }
 
   if (target.classList.contains('img-filters__button')) {
     if (target.id !== filterBtnActive.id || target.id === 'filter-random') {

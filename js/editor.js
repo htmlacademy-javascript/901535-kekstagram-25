@@ -1,4 +1,4 @@
-import "../nouislider/nouislider.js"
+import './nouislider.js';
 
 const Effect = {
   chrome: { min: 0, max: 1, step: 0.1, style: (value) => `grayscale(${value})` },
@@ -12,14 +12,13 @@ const Effect = {
 const effectLevel = document.querySelector('.effect-level');
 const sliderElement = effectLevel.querySelector('.effect-level__slider');
 const sliderValue = effectLevel.querySelector('.effect-level__value');
-const effects = document.querySelector('.img-upload__effects');
 
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
 const imgEffect = {
   effect: 'none',
   value: 100,
-}
+};
 
 const resetEffectImage = () => {
   imgEffect.effect = 'none';

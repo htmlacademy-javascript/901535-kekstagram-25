@@ -1,19 +1,19 @@
-import { getPhotoSrc, isEscEvent } from "./util.js"
-import { createSlider, destroySlider, resetEffectImage, onEffectsChange } from "./editor.js";
-import { zoomIn, zoonOut } from "./zoom.js";
-import { validationText } from "./validation.js";
-import { request } from "./network.js";
-import { showErrorLoad, showSuccessLoad } from "./modal.js";
+import { isEscEvent, getPhotoSrc } from './util.js';
+import { zoomIn, zoomOut } from './zoom.js';
+import { resetEffectImage, createSlider, destroySlider, onEffectsChange } from './editor.js';
+import { validationText } from './validation.js';
+import { showSuccessLoad, showErrorLoad } from './modal.js';
+import { request } from './network.js';
 
 const body = document.querySelector('body');
-const imgUpload = body.querySelector('.img-upload');
-const uploadFileInput = imgUpload.querySelector('#upload-file');
-const imgUploadOverlay = imgUpload.querySelector('.img-upload__overlay');
-const imgUploadCancel = imgUpload.querySelector('.img-upload__cancel');
+const imgUploadForm = body.querySelector('.img-upload__form');
+const uploadFileInput = imgUploadForm.querySelector('#upload-file');
+const imgUploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
+const imgUploadCancel = imgUploadForm.querySelector('.img-upload__cancel');
 
-const imgUploadPreview = document.querySelector('.img-upload__preview img');
-const imgEffectsPreviews = imgUpload.querySelectorAll('.effects__preview');
-const imgUploadScale = document.querySelector('.img-upload__scale');
+const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img');
+const imgEffectsPreviews = imgUploadForm.querySelectorAll('.effects__preview');
+const imgUploadScale = imgUploadForm.querySelector('.img-upload__scale');
 const scaleControlValue = imgUploadScale.querySelector('.scale__control--value');
 const scaleControlSmaller = imgUploadScale.querySelector('.scale__control--smaller');
 const scaleControlBigger = imgUploadScale.querySelector('.scale__control--bigger');
@@ -54,11 +54,11 @@ const openUploadForm = () => {
   document.addEventListener('keydown', onPopupEscKeydown);
   imgUploadCancel.addEventListener('click', closeUploadForm);
   scaleControlSmaller.addEventListener('click', zoomIn);
-  scaleControlBigger.addEventListener('click', zoonOut);
+  scaleControlBigger.addEventListener('click', zoomOut);
   effects.addEventListener('change', onEffectsChange);
   textHashtags.addEventListener('input', onHashtagsInput);
   textDescription.addEventListener('input', onDescriptionInput);
-  imgUpload.addEventListener('submit', onImgUploadFormSubmit);
+  imgUploadForm.addEventListener('submit', onImgUploadFormSubmit);
 };
 
 const closeUploadForm = () => {
@@ -69,11 +69,12 @@ const closeUploadForm = () => {
 
   document.removeEventListener('keydown', onPopupEscKeydown);
   imgUploadCancel.removeEventListener('click', closeUploadForm);
-  scaleControlSmaller.removeEventListener('cick', zoomIn);
-  scaleControlBigger.removeEventListener('click', zoonOut);
+  scaleControlSmaller.removeEventListener('click', zoomIn);
+  scaleControlBigger.removeEventListener('click', zoomOut);
+  effects.removeEventListener('change', onEffectsChange);
   textHashtags.removeEventListener('input', onHashtagsInput);
   textDescription.removeEventListener('input', onDescriptionInput);
-  imgUpload.removeEventListener('submit', onImgUploadFormSubmit);
+  imgUploadForm.removeEventListener('submit', onImgUploadFormSubmit);
 };
 
 const onHashtagsInput = () => validationText(textHashtags, 'hashtag');

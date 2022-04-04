@@ -1,7 +1,7 @@
-import { createPosts, posts as generatedPosts } from "./data.js";
-import { showErrorReceive } from "./modal.js";
-import { request } from "./network.js";
-import { renderPosts } from "./preview.js";
+import { renderPosts } from './preview.js';
+import { request } from './network.js';
+import { showErrorReceive } from './modal.js';
+import { createPosts, posts as generatedPosts } from './data.js';
 
 let posts;
 

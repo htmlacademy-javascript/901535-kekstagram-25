@@ -1,4 +1,5 @@
 import { postOpen } from './post.js';
+import { showBlockFilter } from './filter.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesBlock = document.querySelector('.pictures');
@@ -34,6 +35,8 @@ const renderPosts = (posts, callback) => {
   });
 
   picturesBlock.appendChild(picturesFragment);
+
+  showBlockFilter();
 
   if (callback) {
     callback();
