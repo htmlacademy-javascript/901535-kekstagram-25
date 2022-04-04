@@ -48,7 +48,7 @@
                   <!-- Изменение размера изображения -->
                   <fieldset class="img-upload__scale  scale">
                     <button type="button" class="scale__control  scale__control--smaller">Уменьшить</button>
-                    <input type="text" class="scale__control  scale__control--value" value="55%" title="Image Scale" name="scale" readonly>
+                    <input type="text" class="scale__control  scale__control--value" value="100%" title="Image Scale" name="scale" readonly>
                     <button type="button" class="scale__control  scale__control--bigger">Увеличить</button>
                   </fieldset>
 
@@ -59,7 +59,7 @@
 
                   <!-- Изменение глубины эффекта, накладываемого на изображение -->
                   <fieldset class="img-upload__effect-level  effect-level">
-                    <input class="effect-level__value" type="number" name="effect-level" value="">
+                    <input class="effect-level__value" type="text" name="effect-level" value="">
                     <div class="effect-level__slider"></div>
                   </fieldset>
 
@@ -118,7 +118,7 @@
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
                   <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
-                  <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
+                  <textarea class="text__description" name="description" maxlength="140" placeholder="Ваш комментарий..."></textarea>
                 </fieldset>
 
                 <!-- Кнопка для отправки данных на сервер -->
@@ -215,12 +215,12 @@
     </li>
   </template>
 
-  <!-- Сообщение с ошибкой загрузки изображения -->
+  <!-- Сообщение с ошибкой о получении данных -->
   <template id="error-receive">
     <section class="error">
       <div class="error__inner">
         <h2 class="error__title">Ошибка при получении данных</h2>
-        <button type="button" class="error__button">Будут использованы сгенерированные данные</button>
+        <p class="error__subtitle">Будут использованы сгенерированные данные</p>
       </div>
     </section>
   </template>
@@ -230,7 +230,6 @@
     <section class="error">
       <div class="error__inner">
         <h2 class="error__title">Ошибка загрузки файла</h2>
-        <!-- <button type="button" class="error__button">Загрузить другой файл</button> -->
       </div>
     </section>
   </template>
@@ -240,7 +239,6 @@
     <section class="success">
       <div class="success__inner">
         <h2 class="success__title">Изображение успешно загружено</h2>
-        <!-- <button type="button" class="success__button">Круто!</button> -->
       </div>
     </section>
   </template>

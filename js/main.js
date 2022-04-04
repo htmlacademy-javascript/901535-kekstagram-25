@@ -1,6 +1,5 @@
-import { showErrorReceive } from './modal.js';
-import { request } from './network.js';
-import { renderPosts } from './preview.js';
-import './upload-form.js'
+import './upload-form.js';
+import './filter.js';
+import { getData } from './load.js';
 
-request(renderPosts, showErrorReceive, 'GET');
+getData();
