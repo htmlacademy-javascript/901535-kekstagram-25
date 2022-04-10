@@ -39,7 +39,7 @@ const updateEffectImage = () => {
 
   imgUploadPreview.classList.add(`effects__preview--${imgEffect.effect}`);
 
-  if (imgEffect.effect == 'none') {
+  if (imgEffect.effect === 'none') {
     effectLevel.classList.add('visually-hidden');
   } else {
     effectLevel.classList.remove('visually-hidden');
