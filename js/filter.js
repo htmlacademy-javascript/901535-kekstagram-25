@@ -1,5 +1,5 @@
 import { removePictures, renderPosts } from './preview.js';
-import { POSTS_DATA, posts as generatedPosts } from './data.js';
+import { postsData, posts as generatedPosts } from './data.js';
 import { posts as receivedPosts } from './load.js';
 import { shuffle, debounce } from './util.js';
 
@@ -26,7 +26,7 @@ const rerender = debounce((id) => {
 
   switch (id) {
     case 'filter-random':
-      postsCurrent = shuffle(posts.slice()).slice(0, POSTS_DATA.count_random_posts);
+      postsCurrent = shuffle(posts.slice()).slice(0, postsData.countRandomPosts);
       break;
     case 'filter-discussed':
       postsCurrent = posts.slice().sort((a, b) => b.comments.length - a.comments.length);

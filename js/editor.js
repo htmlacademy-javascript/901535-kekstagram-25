@@ -1,6 +1,6 @@
 import './nouislider.js';
 
-const Effect = {
+const effect = {
   chrome: { min: 0, max: 1, step: 0.1, style: (value) => `grayscale(${value})` },
   sepia: { min: 0, max: 1, step: 0.1, style: (value) => `sepia(${value})` },
   marvin: { min: 0, max: 100, step: 1, style: (value) => `invert(${value}%)` },
@@ -29,7 +29,7 @@ const resetEffectImage = () => {
 
 const updateEffectImage = () => {
   sliderValue.value = imgEffect.value;
-  imgUploadPreview.style.filter = Effect[imgEffect.effect].style(imgEffect.value);
+  imgUploadPreview.style.filter = effect[imgEffect.effect].style(imgEffect.value);
 
   imgUploadPreview.classList.forEach((item) => {
     if (item.includes('effects__preview--')) {
@@ -49,11 +49,11 @@ const updateEffectImage = () => {
 const createSlider = () => {
   window.noUiSlider.create(sliderElement, {
     range: {
-      min: Effect[imgEffect.effect].min,
-      max: Effect[imgEffect.effect].max,
+      min: effect[imgEffect.effect].min,
+      max: effect[imgEffect.effect].max,
     },
-    start: Effect[imgEffect.effect].max,
-    step: Effect[imgEffect.effect].step,
+    start: effect[imgEffect.effect].max,
+    step: effect[imgEffect.effect].step,
     connect: 'lower',
     format: {
       to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
@@ -68,14 +68,14 @@ const createSlider = () => {
   });
 };
 
-const updateOptionsSlider = (effect) => {
+const updateOptionsSlider = (eff) => {
   sliderElement.noUiSlider.updateOptions({
     range: {
-      min: Effect[effect].min,
-      max: Effect[effect].max,
+      min: effect[eff].min,
+      max: effect[eff].max,
     },
-    start: Effect[effect].max,
-    step: Effect[effect].step,
+    start: effect[eff].max,
+    step: effect[eff].step,
   });
 };
 
@@ -84,11 +84,11 @@ const destroySlider = () => {
 };
 
 const onEffectsChange = (evt) => {
-  const effect = evt.target.id.split('-')[1];
+  const eff = evt.target.id.split('-')[1];
 
-  imgEffect.effect = effect;
+  imgEffect.effect = eff;
 
-  updateOptionsSlider(effect);
+  updateOptionsSlider(eff);
   updateEffectImage();
 };
 

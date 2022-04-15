@@ -1,8 +1,8 @@
 import { getRandomInt, getRandomElement, getUniqueValue } from './util.js';
 
-const POSTS_DATA = {
-  count_posts: 25,
-  count_random_posts: 10,
+const postsData = {
+  countPosts: 25,
+  countRandomPosts: 10,
   names: ['Иван', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   comments: [
     'Всё отлично!',
@@ -12,16 +12,16 @@ const POSTS_DATA = {
     'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   ],
-  count_likes: {
+  countLikes: {
     min: 15,
     max: 200,
   },
-  count_comments: {
+  countComments: {
     min: 0,
     max: 10,
   },
-  count_avatar: 6,
-  comment_max_length: 140,
+  countAvatar: 6,
+  commentMaxLength: 140,
 };
 
 let posts;
@@ -32,13 +32,13 @@ const createComment = () => {
   const comments = [];
   let commentId;
 
-  for (let i = 0; i < getRandomInt(POSTS_DATA.count_comments.min, POSTS_DATA.count_comments.max); i++) {
+  for (let i = 0; i < getRandomInt(postsData.countComments.min, postsData.countComments.max); i++) {
     commentId = getUniqueValue(arrayIds, 1, 999);
     arrayIds.push(commentId);
 
     let messages = new Array(2)                                         // объявляем массив
       .fill(null)                                                       // присваиваем null всум элементам
-      .map(() => getRandomElement(POSTS_DATA.comments))                 // заполняем случайными значениями
+      .map(() => getRandomElement(postsData.comments))                 // заполняем случайными значениями
       .filter((_, index) => index ? getRandomInt(0, 1) : 1)             // оставляем первый элемент (чтоб не был пустым), остальные выводим рандомно
       .reduce((result, item) => {                                       // удаляем дубликаты
         return result.includes(item) ? result : [...result, item];
@@ -47,9 +47,9 @@ const createComment = () => {
 
     comments.push({
       id: commentId,
-      avatar: `img/avatar-${getRandomInt(1, POSTS_DATA.count_avatar)}.svg`,
-      message: messages.substr(0, POSTS_DATA.comment_max_length),
-      name: getRandomElement(POSTS_DATA.names),
+      avatar: `img/avatar-${getRandomInt(1, postsData.countAvatar)}.svg`,
+      message: messages.substr(0, postsData.commentMaxLength),
+      name: getRandomElement(postsData.names),
     });
   }
 
@@ -58,7 +58,7 @@ const createComment = () => {
 
 // генерация постов
 const createPosts = () => {
-  posts = new Array(POSTS_DATA.count_posts)
+  posts = new Array(postsData.countPosts)
     .fill(null)
     .map((item, index) => {
       return {
@@ -71,4 +71,4 @@ const createPosts = () => {
     });
 };
 
-export { POSTS_DATA, createPosts, posts };
+export { postsData, createPosts, posts };
