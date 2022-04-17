@@ -1,5 +1,5 @@
 import { isEscEvent, getPhotoSrc } from './util.js';
-import { zoomIn, zoomOut } from './zoom.js';
+import { onZoomInClick, onZoomOutClick } from './zoom.js';
 import { resetEffectImage, createSlider, destroySlider, onEffectsChange } from './editor.js';
 import { validationText } from './validation.js';
 import { showSuccessLoad, showErrorLoad } from './modal.js';
@@ -53,8 +53,8 @@ const openUploadForm = () => {
 
   document.addEventListener('keydown', onPopupEscKeydown);
   imgUploadCancel.addEventListener('click', closeUploadForm);
-  scaleControlSmaller.addEventListener('click', zoomIn);
-  scaleControlBigger.addEventListener('click', zoomOut);
+  scaleControlSmaller.addEventListener('click', onZoomInClick);
+  scaleControlBigger.addEventListener('click', onZoomOutClick);
   effects.addEventListener('change', onEffectsChange);
   textHashtags.addEventListener('input', onHashtagsInput);
   textDescription.addEventListener('input', onDescriptionInput);
@@ -69,8 +69,8 @@ const closeUploadForm = () => {
 
   document.removeEventListener('keydown', onPopupEscKeydown);
   imgUploadCancel.removeEventListener('click', closeUploadForm);
-  scaleControlSmaller.removeEventListener('click', zoomIn);
-  scaleControlBigger.removeEventListener('click', zoomOut);
+  scaleControlSmaller.removeEventListener('click', onZoomInClick);
+  scaleControlBigger.removeEventListener('click', onZoomOutClick);
   effects.removeEventListener('change', onEffectsChange);
   textHashtags.removeEventListener('input', onHashtagsInput);
   textDescription.removeEventListener('input', onDescriptionInput);

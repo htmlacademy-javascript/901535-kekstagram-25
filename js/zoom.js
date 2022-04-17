@@ -20,7 +20,7 @@ const zoomImage = (value) => {
   imgUploadPreview.style = `transform: scale(${value / 100})`;
 };
 
-const zoomIn = () => {
+const onZoomInClick = () => {
   let value = getValue(scaleControlValue.value) - Zoom.STEP;
   if (value < Zoom.MIN) {
     value = Zoom.MIN;
@@ -29,7 +29,7 @@ const zoomIn = () => {
   zoomImage(value);
 };
 
-const zoomOut = () => {
+const onZoomOutClick = () => {
   let value = getValue(scaleControlValue.value) + Zoom.STEP;
   if (value > Zoom.MAX) {
     value = Zoom.MAX;
@@ -38,4 +38,4 @@ const zoomOut = () => {
   zoomImage(value);
 };
 
-export { zoomIn, zoomOut };
+export { onZoomInClick, onZoomOutClick };
