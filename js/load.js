@@ -1,7 +1,6 @@
 import { renderPosts } from './preview.js';
 import { request } from './network.js';
 import { showErrorReceive } from './modal.js';
-import { createPosts, posts as generatedPosts } from './data.js';
 
 let posts;
 
@@ -12,8 +11,6 @@ const onSuccess = (data) => {
 
 const onFail = (message) => {
   showErrorReceive(message)
-    .then(() => createPosts())
-    .then(() => renderPosts(generatedPosts));
 };
 
 const getData = () => {

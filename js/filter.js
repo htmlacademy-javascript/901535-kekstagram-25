@@ -1,5 +1,4 @@
 import { removePictures, renderPosts } from './preview.js';
-import { postsData, posts as generatedPosts } from './data.js';
 import { posts as receivedPosts } from './load.js';
 import { shuffle, debounce } from './util.js';
 
@@ -26,7 +25,6 @@ const rerender = debounce((id) => {
 
   switch (id) {
     case 'filter-random':
-      postsCurrent = shuffle(posts.slice()).slice(0, postsData.countRandomPosts);
       break;
     case 'filter-discussed':
       postsCurrent = posts.slice().sort((a, b) => b.comments.length - a.comments.length);
@@ -40,8 +38,8 @@ const onFilterClick = (evt) => {
   const filterBtnActive = filterForm.querySelector('.img-filters__button--active');
 
   if (!posts) {
-    posts = receivedPosts || generatedPosts;
-  }
+    posts = receivedPosts;
+  };
 
   if (target.classList.contains('img-filters__button')) {
     if (target.id !== filterBtnActive.id || target.id === 'filter-random') {
