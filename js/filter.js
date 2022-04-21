@@ -1,6 +1,6 @@
 import { removePictures, renderPosts } from './preview.js';
 import { posts as receivedPosts } from './load.js';
-import { shuffle, debounce } from './util.js';
+import { debounce } from './util.js';
 
 const filter = document.querySelector('.img-filters');
 const filterForm = filter.querySelector('.img-filters__form');
