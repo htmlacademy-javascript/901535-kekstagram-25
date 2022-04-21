@@ -1,4 +1,3 @@
-import { POSTS_DATA } from './data.js';
 import { getWordEnding } from './util.js';
 
 const Callbacks = {
@@ -61,7 +60,7 @@ const validationHashtag = (text) => {
 
 const validationDescription = (text) => {
   const textLength = text.trim().length;
-  const maxLength = POSTS_DATA.comment_max_length;
+  const maxLength = 140;
 
   if (textLength > maxLength) {
     return `Превышен лимит символов: ${maxLength}. Удалите ${(textLength - maxLength)} ${getWordEnding(textLength - maxLength, ['символ', 'символа', 'символов'])}.`;
